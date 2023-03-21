@@ -1,22 +1,13 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
- * Author             : WCH
+ * Author             : Green Dragon Maker space
  * Version            : V1.0.0
- * Date               : 2022/08/08
- * Description        : Main program body.
-*********************************************************************************
-This program is to control a digital MCP4012 50k potentiometer.
-It has 2 functions: Increment and Decrement
+ * Date               : 21/03/23
+ * Description        : This program is to control a digital MCP4012 50k potentiometer.
+                        It has 2 functions: Increment and Decrement
 *******************************************************************************/
 
 #include "debug.h"
-
-
-/* Global define */
-
-
-/* Global Variable */
-
 
 void pins_init(void)
 {
@@ -37,9 +28,6 @@ void pins_init(void)
 
 }
 
-/*********************************************************************
-
- */
 void decrement_resistance(int times)
 {
         GPIOD->BSHR = 1 << 4; // put digipot data pin D4 high and wait for 500ns
@@ -170,18 +158,11 @@ void increment_resistance(int times)
 
 }
 
-/*********************************************************************
- * @fn      main
- *
- * @brief   Main program.
- *
- * @return  none
- */
 int main(void)
 {
-//    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
     Delay_Init();
     pins_init();
+    
     GPIOC->BCR = 1 << 4; // put Chip Select pin C4 High
     Delay_Ms(100);
     GPIOD->BSHR = 1 << 4; // put digipot data pin D4 low
