@@ -12,13 +12,13 @@ You can buy the chips and the programmer from the WCH outlet on Aliexpress https
 
 # MCP4131 Digipot SPI
 
-This is a driver for the MCP4131 Microchip Digital Potentiometer, written in C language for a CH32V003 microcontroller.
+This is a very basic SPI driver for the MCP4131 Microchip Digital Potentiometer, written in C language for a CH32V003 microcontroller. It can only increment and decrement the wiper without any of the error checking and status reading functions. It can be easily expanded to 2 channel versions of the ICs.
 
-SPI_1Lines_HalfDuplex_Init() initialises the SPI communication protocol for single-wire half duplex mode. It sets up the SPI peripheral pins. It sets up the SPI peripheral in 1-line transmission mode with the microcontroller acting as the master (Host). The SPI clock polarity is set to high and the first bit is transmitted most significant bit first. Finally, the SPI is enabled.
+>SPI_1Lines_HalfDuplex_Init() initialises the SPI communication protocol for single-wire half duplex mode. It sets up the SPI peripheral pins. It sets up the SPI peripheral in 1-line transmission mode with the microcontroller acting as the master (Host). The SPI clock polarity is set to high and the first bit is transmitted most significant bit first. Finally, the SPI is enabled.
 
-The cs_init() function initialises pin C4 on the microcontroller, which is connected to the chip select pin of the MCP4131.
+>The cs_init() function initialises pin C4 on the microcontroller, which is connected to the chip select pin of the MCP4131.
 
-The incrementZ() and decrementZ() functions increment and decrement the wiper position of the MCP4131 digital potentiometer, respectively. They first put the chip select pin low to select the MCP4131. They then send the appropriate 8-bit command and 8 clocks over the SPI pins to increment or decrement the wiper position of the MCP4131 by one step. After a delay of 9 microseconds to allow for the data transfer to complete, the chip select pin is set high to deselect the MCP4131.
+>The incrementZ() and decrementZ() functions increment and decrement the wiper position of the MCP4131 digital potentiometer, respectively. They first put the chip select pin low to select the MCP4131. They then send the appropriate 8-bit command and 8 clocks over the SPI pins to increment or decrement the wiper position of the MCP4131 by one step. After a delay of 9 microseconds to allow for the data transfer to complete, the chip select pin is set high to deselect the MCP4131.
 
 In the main function, the initialisation functions are called and the MCP4131 is repeatedly incremented and decremented in a loop for testing porpoises.
 
