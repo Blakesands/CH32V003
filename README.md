@@ -40,8 +40,8 @@ Drives a mosfet for 12v led PWM dimming. Button input, overcurrent monitor on Sy
 
 This code drives a strip of 140 WS2812B LEDs with 4 digits, each digit being 7 rows * 5 columns with the rows in each digit starting at the left and top. It uses no external libraries. It initialises a Timer that counts up in seconds to 99m59s and resets. The code is written in C for a CH32V003 WCH Microcontroller. The CAL variable is done by hand and will poobrably need adjusting for each MCU.
 
-It includes two arrays, Digit_Map and DigitS. Digit_Map defines the layout of the LED display for each digit from 0-9. DigitS stores the digit of the count number that will be displayed.
+>It includes two arrays, Digit_Map and DigitS. Digit_Map defines the layout of the LED display for each digit from 0-9. DigitS stores the digit of the count number that will be displayed.
 
-The SysTick_Handler function is called by NVIC timer interrupt SysTick_Irq every millisecond. The SysTick_Handler increments the COUNT variable, which is used by the display_number function to update the LED display.
+>The SysTick_Handler function is called by NVIC timer interrupt SysTick_Irq every millisecond. The SysTick_Handler increments the COUNT variable, which is used by the display_number function to update the LED display.
 
-The main function initializes the LED GPIO and delay and loops forever animating the LED strip. The loop calls the display_number function which converts the count variable into an array of digits, loops through each digit and turns on the appropriate LEDs in the LED strip according to the Digit_Map.
+>The main function initializes the LED GPIO and delay and loops forever animating the LED strip. The loop calls the display_number function which converts the count variable into an array of digits, loops through each digit and turns on the appropriate LEDs in the LED strip according to the Digit_Map.
