@@ -1,9 +1,9 @@
-# CH32V003
-Code for the RISC-V WCH CH32V003 (20-pins=20p 8-pins=10p in 2023)
+# Code for the RISC-V WCH CH32V003
+(20-pins=20p 8-pins=10p in 2023)
 This code drives WS2812B LEDs, Digipots, MOSFETs etc
 https://radicalbakers.org/green-dragon-maker-space
 
-# MCP4131
+# MCP4131 Digipot SPI
 
 This is a driver for the MCP4131 Microchip Digital Potentiometer, written in C language for a CH32V003 microcontroller. The code is broken down into several functions that are called from the main function.
 
@@ -15,4 +15,16 @@ The incrementZ() and decrementZ() functions increment and decrement the wiper po
 
 In the main function, the initialisation functions are called and the MCP4131 is repeatedly incremented and decremented in a loop for testing porpoises.
 
-# MCP4012
+# MCP4012 Digipot Bit-bang
+
+This is a driver for the MCP4131 Microchip Digital Potentiometer, written in C language for a CH32V003 microcontroller. It uses direct port access (?) to toggle the pins and assembly language to insert NOP (No Operation) instructions, which are instructions that take up a clock cycle but do nothing, to control the precise timing of the bit-banging operations. It does the same thing as the code above...
+
+# WS2812B Addressable LEDs Bit-bang
+
+This is a driver for WS2812B Addressable LED strips, written in C language for a CH32V003 microcontroller. It uses direct port access (?) to toggle the pins and assembly language to insert NOP (No Operation) instructions, which are instructions that take up a clock cycle but do nothing, to control the precise timing of the bit-banging operations. This is V2 - V3 will use the CH32V003s PWM pulse function instead of bitbanging
+
+It includes various effects I have coded pretty much from scratch.
+
+# PWM_MOSFET
+
+Drives a mosfet for 12v led PWM dimming. Button input, overcurrent monitor on IRq
