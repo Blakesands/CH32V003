@@ -36,5 +36,11 @@ It includes various effects I have coded pretty much from scratch. Much more fun
 
 Drives a mosfet for 12v led PWM dimming. Button input, overcurrent monitor on IRq
 
+# TIMER_MATRIX_LEDS
 
+This code drives a strip of 140 WS2812B LEDs 5*7 x 4 digits display. It uses no external libraries. It initialises a Timer that counts up in seconds to 99m59s and resets. The code is written in C for a CH32V003 WCH Microcontroller.
 
+It includes two arrays, Digit_Map and DigitS. Digit_Map defines the layout of the LED display for each digit from 0-9. DigitS stores the digit of the time or count number that will be displayed.
+The SysTick_Handler function is called by NVIC timer interrupt SysTick_Irqevery millisecond. The SysTick_Handler increments the COUNT variable, which is used by the display_number function to update the LED display.
+The CAL variable is done by hand...
+The main function initializes the LED GPIO and delay and loops forever animating the LED strip. The loop calls the display_number function which converts the count variable into an array of digits, loops through each digit and turns on the appropriate LEDs in the LED strip according to the Digit_Map.
