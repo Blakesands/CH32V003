@@ -24,7 +24,7 @@ In the main function, the initialisation functions are called and the MCP4131 is
 
 # MCP4012 Digipot Bit-bang
 
-This is a driver for the MCP4131 Microchip Digital Potentiometer, written in C language for a CH32V003 microcontroller. It uses direct port access (?) to toggle the pins and assembly language to insert NOP (No Operation) instructions, which are instructions that take up a clock cycle but do nothing, to control the precise timing of the bit-banging operations. It does a similar thing to the code above but less gracefully...
+This is a driver for the MCP4012 Microchip Digital Potentiometer, written in C language for a CH32V003 microcontroller. It uses direct port access (?) to toggle the pins and assembly language to insert NOP (No Operation) instructions, which are instructions that take up a clock cycle but do nothing, to control the precise timing of the bit-banging operations. It does a similar thing to the code above but less gracefully...
 
 # WS2812B Addressable LEDs Bit-bang
 
