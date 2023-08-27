@@ -8,7 +8,19 @@ The example code and manuals are really good and can be found at https://github.
 These files were developed in WCH's IDE Mounriver Studio (Mooóóoon River!). You can rename them main.c and copy them over the main.c in your project user folder.
 You can buy the chips and the programmer from the WCH outlet on Aliexpress https://www.aliexpress.com/item/1005005036714708.html? (no im not a shill)
 
-#TODO notes on flashing the chips esp J4M6 8-pin
+The 8 pin version of this CH32V003 MCU is the J4M6. To program it you need the WCH Link-E programmer. It needs only 3 lines connecting. + voltage, - voltage and SWIO that goes to pin 8 on the IC
+
+# WS2812B Addressable LEDs Bit-bang
+
+This is a driver for WS2812B Addressable LED strips, written in C language for a CH32V003 microcontroller. It uses direct port access (i think its called this?) to toggle the pins and assembly language to insert NOP (No Operation) instructions, which are instructions that take up a clock cycle but do nothing, to control the precise timing of the bit-banging operations. This is V2 - V3 will use the CH32V003s PWM pulse function instead of bitbanging. It ain't FASTLED but it works...
+
+It includes various effects I have coded pretty much from scratch. Much more fun than all this Arduino Library nonsense... :D :D :D
+
+UPDATE 2023: I have split the code for this into source and header files. You need the files:
+GD_WS2812B_main.c
+GD_WS2812_DRIVER.h
+LED_functions.h
+lookups.h
 
 # MCP4131 Digipot SPI
 
@@ -25,12 +37,6 @@ In the main function, the initialisation functions are called and the MCP4131 is
 # MCP4012 Digipot Bit-bang
 
 This is a driver for the MCP4012 Microchip Digital Potentiometer, written in C language for a CH32V003 microcontroller. It uses direct port access (?) to toggle the pins and assembly language to insert NOP (No Operation) instructions, which are instructions that take up a clock cycle but do nothing, to control the precise timing of the bit-banging operations. It does a similar thing to the code above but less gracefully...
-
-# WS2812B Addressable LEDs Bit-bang
-
-This is a driver for WS2812B Addressable LED strips, written in C language for a CH32V003 microcontroller. It uses direct port access (i think its called this?) to toggle the pins and assembly language to insert NOP (No Operation) instructions, which are instructions that take up a clock cycle but do nothing, to control the precise timing of the bit-banging operations. This is V2 - V3 will use the CH32V003s PWM pulse function instead of bitbanging. It ain't FASTLED but it works...
-
-It includes various effects I have coded pretty much from scratch. Much more fun than all this Arduino Library nonsense... :D :D :D
 
 # PWM_MOSFET
 
