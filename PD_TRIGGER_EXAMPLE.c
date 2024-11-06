@@ -1,5 +1,5 @@
 /********************************** (C) COPYRIGHT *******************************
- * File Name          : main.c
+ * File Name          : PD_TRIGGER_EXAMPLE.c
  * Author             : Green Dragon
  * Version            : V1.0.0
  * Date               : 11/2024
