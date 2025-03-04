@@ -24,37 +24,35 @@ int main(void){
     DATA_INIT();
     Delay_Ms(10);
     LED_OFF();
+    
     // configure GPIOC pin 1 as Input Pull Up for TP4056 charging indicator
-//    INPUT_INIT();
-//    Delay_Ms(10);
+    INPUT_INIT();
+    Delay_Ms(10);
 
     // configure GPIOA pin 1 as Analogue input for seeding srand and seed srand
-//    RANDSEED_INIT();
+    RANDSEED_INIT();
     Delay_Ms(250);
 
-    // Send initial LED colour values to the LED strip
-
-
-  // Loop
-while (1) {
-//    int nocharge = GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_1);
-//    if(nocharge==1){
-//            LED_COLD_WHITE();
-//            LED_WARM_WHITE();
-        LED_RAINBOWS(250,144); // variables are delay speed in mS and width (number of leds that cover one cycle)
-//            LED_RAINBOWS_WIDTH(50);
-//            LED_BLUEFIRE(35); // variable is speed in mS delay
-//            LED_STATIC_RANDOM();
-//            LED_RED(25); // variable is brightness 0-255
-//            LED_GREEN(10); // variable is brightness 0-255
-//            LED_BLUE(10); // variable is brightness 0-255
-//            LED_CUSTOM(0,25,0); // set custom colour (red, green, blue) 0-255 RGB
-//            LED_RGB_FLASH(333, 100); // variables are speed in mS delay and brightness
-//            LED_WHITE_FLASH(50, 10); // variables are max and min flash speed
-//            LED_WHITE_FADE(4); // variable is speed in mS delay
-//            LED_PD_TRIGGER (1, 1000);
-//        } // end of if
-
+    while (1) {
+        // if tp4056 is not charging C1 is High
+       if(GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_1)){
+           
+    //            LED_COLD_WHITE();
+    //            LED_WARM_WHITE();
+            LED_RAINBOWS(250,144); // variables are delay speed in mS and width (number of leds that cover one cycle)
+    //            LED_RAINBOWS_WIDTH(50);
+    //            LED_BLUEFIRE(35); // variable is speed in mS delay
+    //            LED_STATIC_RANDOM();
+    //            LED_RED(25); // variable is brightness 0-255
+    //            LED_GREEN(10); // variable is brightness 0-255
+    //            LED_BLUE(10); // variable is brightness 0-255
+    //            LED_CUSTOM(0,25,0); // set custom colour (red, green, blue) 0-255 RGB
+    //            LED_RGB_FLASH(333, 100); // variables are speed in mS delay and brightness
+    //            LED_WHITE_FLASH(50, 10); // variables are max and min flash speed
+    //            LED_WHITE_FADE(4); // variable is speed in mS delay
+    //            LED_PD_TRIGGER (1, 1000);
+           
+       } // end of if
     } // end of while
 } // end of Main
 
