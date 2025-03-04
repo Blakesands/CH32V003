@@ -53,4 +53,4 @@ This is a driver for the MCP4012 Microchip Digital Potentiometer, written in C l
  * 7. PC4       AUX output, signal back to host
  * 8. PD4       SWIO programming
   
-!(CH32V003J4M6_Soft_Latch_Switch/Soft_Latching_Switch_CH32V003.jpg)
+![NMOS Switch Shematic](CH32V003J4M6_Soft_Latch_Switch/Soft_Latching_Switch_CH32V003.jpg)
