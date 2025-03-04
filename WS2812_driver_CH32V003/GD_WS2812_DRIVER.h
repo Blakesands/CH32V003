@@ -7,11 +7,10 @@ uint8_t BUFFER_LEDS[num_leds][3] = {};
 // Initialise the variable for the srand seed
 uint16_t ADC_val;
 
-// Initialise the variable for the TP4056 charge indicator
-//int chargeflag = 0;
+// Initialise the variable for the TP4056 charge indicator (for battery powered systems)
+int chargeflag = 0;
 
-void EXTI0_INT_INIT(void)
-{
+void EXTI0_INT_INIT(void){
     EXTI_InitTypeDef EXTI_InitStructure = {0};
     NVIC_InitTypeDef NVIC_InitStructure = {0};
 
@@ -35,18 +34,15 @@ void EXTI0_INT_INIT(void)
 void EXTI7_0_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 
 // handles EXTI0
-void EXTI7_0_IRQHandler(void)
-{
-  if(EXTI_GetITStatus(EXTI_Line1)!=RESET)
-  {
-//    int chargeflag = 1;
+void EXTI7_0_IRQHandler(void){
+  if(EXTI_GetITStatus(EXTI_Line1)!=RESET){
+   int chargeflag = 1;
     EXTI_ClearITPendingBit(EXTI_Line1);     /* Clear Flag */
   }
 }
 
 // Initialise the GPIO pin GPIOC GPIO_Pin_4 as an output
-void DATA_INIT(void)
-{
+void DATA_INIT(void){
     GPIO_InitTypeDef GPIO_InitStructure = {0};
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
@@ -56,8 +52,7 @@ void DATA_INIT(void)
 }
 
 // Initialise the GPIO pin GPIOC GPIO_Pin_1 as an input
-void INPUT_INIT(void)
-{
+void INPUT_INIT(void){
     GPIO_InitTypeDef GPIO_InitStructure = {0};
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
@@ -66,8 +61,7 @@ void INPUT_INIT(void)
     GPIO_Init(GPIOC, &GPIO_InitStructure);
 }
 
-void RANDSEED_INIT(void)
-{
+void RANDSEED_INIT(void){
     GPIO_InitTypeDef GPIO_InitStructure = {0};
     ADC_InitTypeDef ADC_InitStructure = {0};
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
@@ -105,12 +99,6 @@ void RANDSEED_INIT(void)
 
     //    random seed is ADC reading of floating pin
     srand((unsigned) ADC_val);
-
-//    //    random seed is ADC reading of floating pin
-//    GPIO_InitTypeDef GPIO_InitStructure = {0};
-//    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
-//    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
-//    GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
 
 // Utility
@@ -123,8 +111,7 @@ int Map_Range(int value, int inMin, int inMax, int outMin, int outMax) {
 }
 
 // Send a single bit, Check mark/space ratio of the data on C4 with an oscilloscope
-void LED_SendBit(uint8_t bit)
-{
+void LED_SendBit(uint8_t bit){
     if (bit) {
     //// Send a 1 bit
         GPIOC->BSHR = 1 << 4; // put pin C4 high and wait for 800nS
@@ -145,7 +132,6 @@ void LED_SendBit(uint8_t bit)
 
         return;
         }
-//    else {
         // Send a 0 bit
         GPIOC->BSHR = 1 << 4; // put pin C4 high and wait for 400nS
             __asm__("nop");__asm__("nop");__asm__("nop");__asm__("nop");
@@ -159,12 +145,10 @@ void LED_SendBit(uint8_t bit)
             __asm__("nop");__asm__("nop");__asm__("nop");__asm__("nop");
 //            __asm__("nop");__asm__("nop");__asm__("nop");__asm__("nop");
 //            __asm__("nop");__asm__("nop");__asm__("nop");__asm__("nop");
-//    }
 }
 
 // Send a single colour for a single LED, WS2812B LEDs want 24 bits per led in the string
-void LED_SendColour(uint8_t Red, uint8_t Green, uint8_t Blue, uint8_t brightness)
-{
+void LED_SendColour(uint8_t Red, uint8_t Green, uint8_t Blue, uint8_t brightness){
     uint8_t green = Map_Range(Green, 0, 255, 0, (brightness-100)); // -100 adjusting for red led low forward voltage
     uint8_t red = Map_Range(Red, 0, 255, 0, brightness);
     uint8_t blue = Map_Range(Blue, 0, 255, 0, (brightness-100));
@@ -183,8 +167,7 @@ void LED_SendColour(uint8_t Red, uint8_t Green, uint8_t Blue, uint8_t brightness
 }
 
 // Send the colour data for the entire strip of LEDs
-void SHOWTIME(uint8_t BUFFER_LEDS[num_leds][3])
-{
+void SHOWTIME(uint8_t BUFFER_LEDS[num_leds][3]){
     // send LED info
     for (int i = 0; i < num_leds; i++) {
         LED_SendColour(BUFFER_LEDS[i][0], BUFFER_LEDS[i][1], BUFFER_LEDS[i][2], BRIGHT);
@@ -192,10 +175,3 @@ void SHOWTIME(uint8_t BUFFER_LEDS[num_leds][3])
     // Delay for minimum 50uS between pinwiggles to signal next frame to WS2812B LEDS
     Delay_Us(50);
 }
-
-// adjust for less blue more red
-//    for (int i = 0; i < num_leds; i++) {
-////        BUFFER_LEDS[i][0] =
-//        BUFFER_LEDS[i][0] = BUFFER_LEDS[i][0] + 50;
-//        BUFFER_LEDS[i][2] = BUFFER_LEDS[i][0] - 25;
-//        }
