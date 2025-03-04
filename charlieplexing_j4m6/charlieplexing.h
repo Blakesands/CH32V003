@@ -59,7 +59,7 @@ void GPIO_Config(void){
 
 void start_systick (void) { // Configure and enable SysTick
     SysTick->SR &= ~(1 << 0); // Clear the count flag
-    SysTick->CMP = SystemCoreClock / (10000); // Interrupt every 100nS ish
+    SysTick->CMP = SystemCoreClock / (10000); // Interrupt every 100uS ish
     SysTick->CNT = 0;    // Reset the counter
     SysTick->CTLR = 0xF; // Enable SysTick, CPU clock, and interrupt (only first 3 bits used on ch32v003)
     NVIC_EnableIRQ(SysTicK_IRQn); // start updating pins
