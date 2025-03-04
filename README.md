@@ -39,3 +39,16 @@ In the main function, the initialisation functions are called and the MCP4131 is
 # MCP4012 Digipot Bit-bang
 
 This is a driver for the MCP4012 Microchip Digital Potentiometer, written in C language for a CH32V003 microcontroller. It uses direct port access (?) to toggle the pins and assembly language to insert NOP (No Operation) instructions, which are instructions that take up a clock cycle but do nothing, to control the precise timing of the bit-banging operations. It does a similar thing to the code above but less gracefully...
+
+# Soft Latching NMOS Switch driver
+
+* CH32V003 J4M6 Soft latching switch with power off communication to main system
+ * pins:
+ * 1. PA1       Nmos gate drive
+ * 2.           Ground 0V
+ * 3.           NC
+ * 4.           VDD +5V
+ * 5. PC1       Indicator LED
+ * 6. PC2       Button Press sense
+ * 7. PC4       AUX output, signal back to host
+ * 8. PD4       SWIO programming
