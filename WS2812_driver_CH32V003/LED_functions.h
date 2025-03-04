@@ -7,16 +7,15 @@ uint32_t count = 1;
 void LED_RAINBOWS(uint16_t speed, uint16_t width);
 uint8_t * Wheel(uint8_t WheelPos);
 
-void LED_OFF(void)
-{
-    for (int i = 0; i <  256; i++) { //increase number if string is longer than 256
+void LED_OFF(void){
+    //increase number if string is longer than 256
+    for (int i = 0; i <  256; i++) { 
         LED_SendColour(0, 0, 0, 1);
     }
     Delay_Us(50);
 }
 
-void LED_RED(uint8_t brightness)
-{
+void LED_RED(uint8_t brightness){
     for (int i = 0; i < num_leds; i++) {
         LED_SendColour(brightness, 0, 0, BRIGHT);
     }
@@ -24,8 +23,7 @@ void LED_RED(uint8_t brightness)
 //    __WFI(); // uncomment to program static colour and go to sleep
 }
 
-void LED_GREEN(uint8_t brightness)
-{
+void LED_GREEN(uint8_t brightness){
     for (int i = 0; i < num_leds; i++) {
         LED_SendColour(0, brightness, 0, BRIGHT);
     }
@@ -33,8 +31,7 @@ void LED_GREEN(uint8_t brightness)
     __WFI(); // uncomment to program static colour and go to sleep
 }
 
-void LED_BLUE(uint8_t brightness)
-{
+void LED_BLUE(uint8_t brightness){
     for (int i = 0; i < num_leds; i++) {
         LED_SendColour(0, 0, brightness, BRIGHT);
     }
@@ -42,8 +39,7 @@ void LED_BLUE(uint8_t brightness)
     __WFI(); // uncomment to program static colour and go to sleep
 }
 
-void LED_WARM_WHITE(void)
-{
+void LED_WARM_WHITE(void){
     for (int i = 0; i < num_leds; i++) {
         LED_SendColour(255, 100, 50, BRIGHT);
     }
@@ -51,8 +47,7 @@ void LED_WARM_WHITE(void)
     __WFI(); // uncomment to program static colour and go to sleep
 }
 
-void LED_COLD_WHITE(void)
-{
+void LED_COLD_WHITE(void){
     for (int i = 0; i < num_leds; i++) {
         LED_SendColour(255, 180, 235, BRIGHT);
     }
@@ -60,8 +55,7 @@ void LED_COLD_WHITE(void)
     __WFI(); // uncomment to program static colour and go to sleep
 }
 
-void LED_CUSTOM(uint16_t red, uint16_t green, uint16_t blue)
-{
+void LED_CUSTOM(uint16_t red, uint16_t green, uint16_t blue){
     for (int i = 0; i < num_leds; i++) {
         LED_SendColour(red, green, blue, BRIGHT);
     }
@@ -69,8 +63,7 @@ void LED_CUSTOM(uint16_t red, uint16_t green, uint16_t blue)
     __WFI(); // uncomment to program static colour and go to sleep
 }
 
-void LED_RGB_FLASH(uint16_t speed, uint8_t brightness)
-{
+void LED_RGB_FLASH(uint16_t speed, uint8_t brightness){
     for (int i = 0; i < num_leds; i++) {
     LED_SendColour(brightness, 0, 0, BRIGHT); }
     Delay_Ms(speed);
@@ -80,50 +73,45 @@ void LED_RGB_FLASH(uint16_t speed, uint8_t brightness)
     for (int i = 0; i < num_leds; i++) {
     LED_SendColour(0, 0, brightness, BRIGHT);}
     Delay_Ms(speed);
-
 }
 
-void LED_STATIC_RANDOM (void){ // fills BUFFER_LEDS with random values seeded from ADC reading a floating pin A4
-int COL [3];
-COL [1] = rand_lookup_2[(rand() % 128)];
-COL [2] = rand_lookup_2[(rand() % 128)];
-COL [3]= rand_lookup_2[(rand() % 128)];
-
-if (COL [1] + COL[2] + COL[3] == 765)
-{
-    while (1){
-        LED_RAINBOWS(50, 5);
+// fills BUFFER_LEDS with random values seeded from ADC reading a floating pin A4
+void LED_STATIC_RANDOM (void){ 
+    int COL [3];
+    COL [1] = rand_lookup_2[(rand() % 128)];
+    COL [2] = rand_lookup_2[(rand() % 128)];
+    COL [3]= rand_lookup_2[(rand() % 128)];
+    
+    if (COL [1] + COL[2] + COL[3] == 765){
+        while (1){
+            LED_RAINBOWS(50, 5);
+        }
     }
-}
-
-//if (COL [1] + COL[2] + COL[3] == 189)
-//{
-//    while (1){
-//        LED_RAINBOWS(30, 2);
-//    }
-//}
-
-if (COL [1] + COL[2] + COL[3] == 0)
-{
-    COL[1] = 220;
-    COL[2] = 0;
-    COL[3] = 0;
-}
-for (int i = 0; i < num_leds; ++i) {
-
+    
+    //if (COL [1] + COL[2] + COL[3] == 189)
+    //{
+    //    while (1){
+    //        LED_RAINBOWS(30, 2);
+    //    }
+    //}
+    
+    if (COL [1] + COL[2] + COL[3] == 0){
+        COL[1] = 220;
+        COL[2] = 0;
+        COL[3] = 0;
+    }
+    for (int i = 0; i < num_leds; ++i) {
         BUFFER_LEDS[i][0] = COL[1];
         BUFFER_LEDS[i][1] = COL[2];
         BUFFER_LEDS[i][2] = COL[3];
     }
-
-SHOWTIME(BUFFER_LEDS);
-
-__WFI(); // uncomment to program static colour and go to sleep
+    
+    SHOWTIME(BUFFER_LEDS);
+    __WFI(); // uncomment to program static colour and go to sleep
 }
 
 // used by RAINBOWS
-uint8_t * Wheel(uint8_t WheelPos)
-{
+uint8_t * Wheel(uint8_t WheelPos){
   if(WheelPos < 85) {
    c[2]=WheelPos * 3;
    c[1]=255 - WheelPos * 3;
@@ -145,28 +133,15 @@ uint8_t * Wheel(uint8_t WheelPos)
 void LED_RAINBOWS(uint16_t speed, uint16_t width) {
   uint8_t *c;
   uint16_t i, j;
-
   for(j=0; j<256; j++) {
-
-    for(i=0; i< num_leds; i++) {
-
-
-      c=Wheel(((i * 255 / width -j)) & 255);
-
-      BUFFER_LEDS[i][0] = (*c);
-      BUFFER_LEDS[i][1] = (*(c+1)) ;
-      BUFFER_LEDS[i][2] = (*(c+2)) ;
-
-    }
-//    int nocharge = GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_1);
-//    if (nocharge==1) {
-//    BUFFER_LEDS[i][0] -= 150;
-//    BUFFER_LEDS[i][1] -= 150 ;
-//    BUFFER_LEDS[i][2] += 150 ;
-
-    SHOWTIME(BUFFER_LEDS);
-//    }
-   Delay_Ms(speed);
+        for(i=0; i< num_leds; i++) {
+          c=Wheel(((i * 255 / width -j)) & 255);
+          BUFFER_LEDS[i][0] = (*c);
+          BUFFER_LEDS[i][1] = (*(c+1)) ;
+          BUFFER_LEDS[i][2] = (*(c+2)) ;
+        }
+        SHOWTIME(BUFFER_LEDS);
+        Delay_Ms(speed);
   }
 }
 
@@ -183,18 +158,14 @@ void LED_RAINBOWS_WIDTH(uint16_t speed) { //uint16_t width
       BUFFER_LEDS[i][0] = *c;
       BUFFER_LEDS[i][1] = *(c+1) ;
       BUFFER_LEDS[i][2] = *(c+2) ;
-//      BUFFER_LEDS[i][2] = BUFFER_LEDS[i][2]  - 63 ;
     }
     SHOWTIME(BUFFER_LEDS);
    Delay_Ms(speed);
   }
 }
 
-void LED_BLUEFIRE(uint16_t speed)
-{
-
+void LED_BLUEFIRE(uint16_t speed){
     uint8_t LEDS[num_leds][3] = {};
-
     // Set the first LED to a random colour
     BUFFER_LEDS[0][0] = sine_lookup[(rand() % 85)];
     BUFFER_LEDS[0][1] = sine_lookup[(rand() % 2)];
@@ -204,12 +175,12 @@ void LED_BLUEFIRE(uint16_t speed)
         BUFFER_LEDS[0][0] = 85;
         BUFFER_LEDS[0][1] = 0;
         BUFFER_LEDS[0][2] = 0;
-        }
+    }
     if ((BUFFER_LEDS[0][2]) >8) {
         BUFFER_LEDS[0][0] = 0;
-                BUFFER_LEDS[0][1] = 0;
-                BUFFER_LEDS[0][2] = 85;
-        }
+        BUFFER_LEDS[0][1] = 0;
+        BUFFER_LEDS[0][2] = 85;
+    }
     SHOWTIME(BUFFER_LEDS);
     // Shift the colours of the LEDs by one position
     for (int i = num_leds - 1; i > 0; i--) {
@@ -219,15 +190,13 @@ void LED_BLUEFIRE(uint16_t speed)
         BUFFER_LEDS[i][0] = ((LEDS[i][0]));
         BUFFER_LEDS[i][1] = ((LEDS[i][1]));
         BUFFER_LEDS[i][2] = ((LEDS[i][2]));
-        }
+    }
     SHOWTIME(BUFFER_LEDS);
     Delay_Ms(speed+(rand() % (speed*5)) );
-
 }
 
 // This function applies the sine wave to the LED colours and updates the buffer
-void LED_WHITE_FADE(uint16_t speed)
-{
+void LED_WHITE_FADE(uint16_t speed){
 // Increment count for sine wave animation
     if (!flag) {
         count++;
@@ -237,155 +206,56 @@ void LED_WHITE_FADE(uint16_t speed)
         }
     if (count >= 85) {
         count = 85;
-    flag = 1;
+    f    lag = 1;
     }
     if (count <= 10) {
         count = 10;
         flag = 0;
-        }
-// Apply the sine wave to the LED colors
-for (int i = 0; i < num_leds; i++) {
-    // Update the LED colour values with the mapped sine wave value
-    BUFFER_LEDS[i][0] = sine_lookup_2[count]; // set red value to sine wave value
-    BUFFER_LEDS[i][1] = sine_lookup_2[count]; // set green value to sine wave value
-    BUFFER_LEDS[i][2] = sine_lookup_2[count]; // set blue value to sine wave value
-}
-SHOWTIME(BUFFER_LEDS);
-Delay_Ms(speed);
-}
-
-void LED_WHITE_FLASH (uint16_t max, uint16_t min)
-    {
-        BUFFER_LEDS[0][0] = 200;
-        BUFFER_LEDS[0][1] = 200;
-        BUFFER_LEDS[0][2] = 200;
-        BUFFER_LEDS[1][0] = 0;
-        BUFFER_LEDS[1][1] = 0;
-        BUFFER_LEDS[1][2] = 0;
-
-        // Show the updated buffer on the LED strip
-        SHOWTIME(BUFFER_LEDS);
-        Delay_Ms(count);
-        BUFFER_LEDS[0][0] = 0;
-        BUFFER_LEDS[0][1] = 0;
-        BUFFER_LEDS[0][2] = 0;
-        BUFFER_LEDS[1][0] = 200;
-        BUFFER_LEDS[1][1] = 200;
-        BUFFER_LEDS[1][2] = 200;
-
-        SHOWTIME(BUFFER_LEDS);
-        Delay_Ms(count);
-
-        if (flag) {
-            count++;
-            if (count > max) {
-            flag=0;
-            }
-        }
-        else {
-            count--;
-            if (count < min) {
-            flag=1;
-            }
     }
-}
-
-void LED_PD_TRIGGER (uint16_t colour, uint16_t speed)
-    {
-        count=speed;
-
-        switch (colour) {
-            case 1: // red
-                LED_RED(0);
-                Delay_Ms(count);
-                LED_RED(100);
-                Delay_Ms(count);
-                count=(count/2);
-                LED_RED(0);
-                Delay_Ms(count);
-                LED_RED(100);
-                Delay_Ms(count);
-                count=(count/2);
-                LED_RED(0);
-                                Delay_Ms(count);
-                                LED_RED(100);
-                                Delay_Ms(count);
-                                count=(count/2);
-                                LED_RED(0);
-                                                Delay_Ms(count);
-                                                LED_RED(100);
-                                                Delay_Ms(count);
-                                                count=(count/2);LED_RED(0);
-                                                Delay_Ms(count);
-                                                LED_RED(100);
-                                                Delay_Ms(count);
-                                                count=(count/2);LED_RED(0);
-                                                Delay_Ms(count);
-                                                LED_RED(100);
-                                                Delay_Ms(count);
-                                                count=(count/2);LED_RED(0);
-                                                Delay_Ms(count);
-                                                LED_RED(100);
-                                                Delay_Ms(speed);
-
-                break;
-            case 2: // green
-
-                            break;
-            case 3: // blue
-
-                            break;
-            case 4: // Purple
-
-                            break;
-            case 5: // White
-
-                            break;
-            default:
-                break;
-        }
-
-
-
-
-
-    }
-
-void LED_atlantica (uint8_t waveBrightness, uint8_t waveScale, uint8_t oceanBrightness, uint8_t oceanDepth)
-{
-    // Calculate wave position
-
+    // Apply the sine wave to the LED colors
     for (int i = 0; i < num_leds; i++) {
-        uint8_t distance = abs(i - wavePos);
-        uint8_t intensity = 255 - (distance * waveScale);
-
-        // Apply brightness to the wave
-        intensity = (intensity * waveBrightness) / 255;
-
-        // Set the LED color
-        BUFFER_LEDS[i] [0] = intensity;
-        BUFFER_LEDS[i] [1] = intensity / 2;
-        BUFFER_LEDS[i] [2] = intensity / 2;
-    }
-
-    // Calculate ocean color
-    for (int i = 0; i < num_leds; i++) {
-        uint8_t depth = (num_leds - i) * oceanDepth / num_leds;
-
-        // Apply brightness to the ocean
-        depth = (depth * oceanBrightness) / 255;
-
-        // Add ocean color to the existing wave color
-        BUFFER_LEDS[i] [0] += depth / 2;
-        BUFFER_LEDS[i] [0] += depth;
-        BUFFER_LEDS[i] [0] += depth;
+        // Update the LED colour values with the mapped sine wave value
+        BUFFER_LEDS[i][0] = sine_lookup_2[count]; // set red value to sine wave value
+        BUFFER_LEDS[i][1] = sine_lookup_2[count]; // set green value to sine wave value
+        BUFFER_LEDS[i][2] = sine_lookup_2[count]; // set blue value to sine wave value
     }
     SHOWTIME(BUFFER_LEDS);
-    wavePos++;
-    if (wavePos > 6000){
-        wavePos = 0;
+    Delay_Ms(speed);
+}
+
+void LED_WHITE_FLASH (uint16_t max, uint16_t min){
+    BUFFER_LEDS[0][0] = 200;
+    BUFFER_LEDS[0][1] = 200;
+    BUFFER_LEDS[0][2] = 200;
+    BUFFER_LEDS[1][0] = 0;
+    BUFFER_LEDS[1][1] = 0;
+    BUFFER_LEDS[1][2] = 0;
+
+    // Show the updated buffer on the LED strip
+    SHOWTIME(BUFFER_LEDS);
+    Delay_Ms(count);
+    BUFFER_LEDS[0][0] = 0;
+    BUFFER_LEDS[0][1] = 0;
+    BUFFER_LEDS[0][2] = 0;
+    BUFFER_LEDS[1][0] = 200;
+    BUFFER_LEDS[1][1] = 200;
+    BUFFER_LEDS[1][2] = 200;
+
+    SHOWTIME(BUFFER_LEDS);
+    Delay_Ms(count);
+
+    if (flag) {
+        count++;
+        if (count > max) {
+        flag=0;
+        }
     }
-    Delay_Ms(50);
+    else {
+        count--;
+        if (count < min) {
+        flag=1;
+        }
+    }
 }
 
 
