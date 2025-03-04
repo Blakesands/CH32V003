@@ -10,17 +10,19 @@ You can buy the chips and the programmer from the WCH outlet on Aliexpress https
 
 The 8 pin version of this CH32V003 MCU is the J4M6. To program it you need the WCH Link-E programmer. It needs only 3 lines connecting. + voltage, - voltage and SWIO that goes to pin 8 on the IC
 
+# Charlieplexing 30 LEDs with 6 pins on the CH32V003 J4M6
+
+LEDs are controlled by setting pins as high, low, or high-impedance.
+bool led_buffer holds the state of each LED. Only 1 LED is lit at a time.
+Systick is used to update the LEDs at approx 10kHz
+
+![charlieplexing schematic](http://url/to/img.png)
+
 # WS2812B Addressable LEDs Bit-bang
 
 This is a driver for WS2812B Addressable LED strips, written in C language for a CH32V003 microcontroller. It uses direct port access to toggle the pins and assembly language to insert NOP (No Operation) instructions, which are instructions that take up a clock cycle but do nothing, to control the precise timing of the bit-banging operations. This is V2 - V3 will use the CH32V003s PWM pulse function instead of bitbanging. It ain't FASTLED but it works...
 
 It includes various effects I have coded, some from scratch. Much more fun than all this Arduino Library nonsense... :D :D :D
-
-UPDATE 2023: I have split the code for this into source and header files. You need the files:
-GD_WS2812B_main.c
-GD_WS2812_DRIVER.h
-LED_functions.h
-lookups.h
 
 # MCP4131 Digipot SPI
 
