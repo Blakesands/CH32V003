@@ -5,8 +5,8 @@ This code drives WS2812B LEDs, Digipots, MOSFETs etc.. It's been a learning curv
 The trade-off for muchos cheapness is menos libraries. Here are a few code snippets i hope will help other hobbyists get going with these V.Cheap MCUs.
 The example code and manuals are really good and can be found at https://github.com/openwch/ch32v003
 
-These files were developed in WCH's IDE Mounriver Studio (Mooóóoon River!). You can rename the .c file main.c and copy the files into your project folder, 
-You can buy the chips and the programmer from the WCH outlet on Aliexpress https://www.aliexpress.com/item/1005005036714708.html? (no im not a shill)
+These files were developed in WCH's IDE Mounriver Studio (Mooóóoon River!). 
+You can buy the chips and the programmer from the WCH outlet on Aliexpress
 
 The 8 pin version of this CH32V003 MCU is the J4M6. To program it you need the WCH Link-E programmer. It needs only 3 lines connecting. + voltage, - voltage and SWIO that goes to pin 8 on the IC
 
