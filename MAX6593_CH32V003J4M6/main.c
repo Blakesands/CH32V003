@@ -1,6 +1,6 @@
 /*
  * File Name          : main.c
- * Author             : Green Dragon
+ * Author             : BK
  * Version            : V1.0.0
  * Date               : 11/24
  * Description        : CH32V003 I2c driver for MAX6593, SCL(PC2) SDA(PC1).
@@ -12,13 +12,15 @@
 
 #define NUM_ICS 3 // number of MAX6953 ICs
 #define MY_FONT user_font_array_1 // user_font_array_1
+
 u8 MAX_6953 [NUM_ICS] = {0x50, 0x51, 0x52}; // 01010000 01010001 01010010 7 bit Addresses << 1
 u8 BRIGHTNESS = 0x55; // each half-byte controls different digits - set to 0x11, 0x22 etc..
 u8 Power_Off_Flag = 0x01;
+
 #include "animations.h"
 #include "MAX6953_Driver.h"
 
-/** Enable Interrupt falling edge A2*/
+/** Enable External Interrupt falling edge A2 - input low indicates that system is about to shutdown */
 void EXTI0_INT_INIT (void)
 {
     GPIO_InitTypeDef GPIO_InitStructure = {0};
@@ -47,12 +49,11 @@ void EXTI0_INT_INIT (void)
 
 void EXTI7_0_IRQHandler (void) __attribute__((interrupt("WCH-Interrupt-fast")));
 
-void EXTI7_0_IRQHandler (void) // changes V_REQ variable
+void EXTI7_0_IRQHandler (void)
 {
     if(EXTI_GetITStatus(EXTI_Line4)!=RESET)
     {
-        Bye ();
-//        Delay_Ms(1500);
+        Bye (); // display shutdown animation
         EXTI_ClearITPendingBit(EXTI_Line4);     /* Clear Flag */
     }
 }
@@ -75,8 +76,8 @@ int main(void)
     User_Fonts_Update();
     Delay_Ms(100);
     EXTI0_INT_INIT ();
-    Hello_World ();
-    Static_12ch_User_Fonts();
+    Hello_World (); // display hello animation
+    Static_12ch_User_Fonts(); // Don't Panic
     while(1)
     {
 //        Dont_Panic(500); // animated (speed in mS)
@@ -84,6 +85,6 @@ int main(void)
 //        All_On ();
 //        Static_12ch_Sign();
 //        Fade_12ch_Sign ();
-//        __WFI();
+       __WFI();
     }
 }
