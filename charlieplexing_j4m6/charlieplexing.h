@@ -173,14 +173,4 @@ void animate_frames (void){
     }
 }
 
-void leds_on(int every)
-{
-    clear_led_buffer();
-    for (int i = 0; i < NUM_LEDS; i++){
-        if (i%every==0) {
-            led_buffer[i] = 1;
-        }
-    }
-}
-
 #endif /* USER_CHARLIEPLEXING_H_ */
