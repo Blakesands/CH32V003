@@ -2,8 +2,7 @@
 u8 V_REQ = 0;
 
 /** Enable Interrupt falling edge A2*/
-void EXTI0_INT_INIT (void)
-{
+void EXTI0_INT_INIT (void){
     GPIO_InitTypeDef GPIO_InitStructure = {0};
     EXTI_InitTypeDef EXTI_InitStructure = {0};
     NVIC_InitTypeDef NVIC_InitStructure = {0};
@@ -32,21 +31,18 @@ void EXTI0_INT_INIT (void)
 
 void EXTI7_0_IRQHandler (void) __attribute__((interrupt("WCH-Interrupt-fast")));
 
-void EXTI7_0_IRQHandler (void) // changes V_REQ variable
-{
-    if(EXTI_GetITStatus(EXTI_Line2)!=RESET)
-    {
+void EXTI7_0_IRQHandler (void){ // changes V_REQ variable
+    if(EXTI_GetITStatus(EXTI_Line2)!=RESET){
         V_REQ++;
-        if (V_REQ > 4)
-        {
+        if (V_REQ > 4){
             V_REQ = 0;
         }
         EXTI_ClearITPendingBit(EXTI_Line2);     /* Clear Flag */
     }
 }
 
-void LED_INIT (void) // output pin for addressable WS2812B LED
-{
+// output pin for addressable WS2812B LED
+void LED_INIT (void) { 
     GPIO_InitTypeDef GPIO_InitStructure = {0};
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
@@ -55,8 +51,8 @@ void LED_INIT (void) // output pin for addressable WS2812B LED
     GPIO_Init(GPIOD, &GPIO_InitStructure);
 }
 
-void  PD_CONFIG_INIT (void) // control pins for cfg CH224
-{
+// control pins for cfg CH224
+void  PD_CONFIG_INIT (void) { 
     GPIO_InitTypeDef GPIO_InitStructure = {0};
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_2 |GPIO_Pin_4;
@@ -64,9 +60,8 @@ void  PD_CONFIG_INIT (void) // control pins for cfg CH224
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOC, &GPIO_InitStructure);
 }
-
-void POWERGOOD_INIT (void) // input pin for powergood signal from CH224
-{
+ // input pin for powergood signal from CH224
+void POWERGOOD_INIT (void){
     GPIO_InitTypeDef GPIO_InitStructure = {0};
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
@@ -74,9 +69,8 @@ void POWERGOOD_INIT (void) // input pin for powergood signal from CH224
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOD, &GPIO_InitStructure);
 }
-
-void ERROR_STATE (void)  // Flash led and reset V_REQ - falls through to WFI
-{
+// Flash led and reset V_REQ - falls through to WFI
+void ERROR_STATE (void) {
     LED_SendColour(255, 0, 0, 100);
     Delay_Ms(150);
     LED_SendColour(0, 0, 0, 100);
@@ -96,83 +90,68 @@ void ERROR_STATE (void)  // Flash led and reset V_REQ - falls through to WFI
 }
 
 /// config pins from MCU to CH224
-void  REQ_5V (void)
-{
+void  REQ_5V (void){
     GPIO_WriteBit(GPIOC, GPIO_Pin_1, Bit_SET);      // cfg1
     GPIO_WriteBit(GPIOC, GPIO_Pin_2, Bit_RESET);    // cfg2
     GPIO_WriteBit(GPIOC, GPIO_Pin_4, Bit_RESET);    // cfg3
     Delay_Ms(300);
-    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1))   // check power good signal from CH224
-    {
+     // check power good signal from CH224
+    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1))  {
         ERROR_STATE();
     }
-    else
-    {
+    else{
         LED_SendColour(255, 0, 0, 100);
     }
-
 }
 
-void  REQ_9V  (void)
-{
+void  REQ_9V  (void){
     GPIO_WriteBit(GPIOC, GPIO_Pin_1, Bit_RESET);
     GPIO_WriteBit(GPIOC, GPIO_Pin_2, Bit_RESET);
     GPIO_WriteBit(GPIOC, GPIO_Pin_4, Bit_RESET);
     Delay_Ms(300);
-    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1))
-    {
+    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1){
         ERROR_STATE();
     }
-    else
-    {
+    else{
         LED_SendColour(0, 255, 0, 100);
     }
 }
 
-void  REQ_12V  (void)
-{
+void  REQ_12V  (void){
     GPIO_WriteBit(GPIOC, GPIO_Pin_1, Bit_RESET);
     GPIO_WriteBit(GPIOC, GPIO_Pin_2, Bit_RESET);
     GPIO_WriteBit(GPIOC, GPIO_Pin_4, Bit_SET);
     Delay_Ms(300);
-    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1))
-    {
+    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1)){
         ERROR_STATE();
     }
-    else
-    {
+    else{
         LED_SendColour(0, 0, 255, 100);
     }
 }
 
-void  REQ_15V  (void)
-{
+void  REQ_15V  (void){
     GPIO_WriteBit(GPIOC, GPIO_Pin_1, Bit_RESET);
     GPIO_WriteBit(GPIOC, GPIO_Pin_2, Bit_SET);
     GPIO_WriteBit(GPIOC, GPIO_Pin_4, Bit_SET);
     Delay_Ms(300);
-    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1))
-    {
+    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1)){
         ERROR_STATE();
     }
-    else
-    {
+    else{
         LED_SendColour(100, 75, 75, 100);
     }
 }
 
-void  REQ_20V  (void)
-{
+void  REQ_20V  (void){
     GPIO_WriteBit(GPIOC, GPIO_Pin_1, Bit_RESET);
     GPIO_WriteBit(GPIOC, GPIO_Pin_2, Bit_SET);
     GPIO_WriteBit(GPIOC, GPIO_Pin_4, Bit_RESET);
     Delay_Ms(300);
-    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1))
-    {
+    if (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1)){
         ERROR_STATE();
     }
-    else
-    {
+    else{
         LED_SendColour(255, 0, 255, 100);
     }
 }
