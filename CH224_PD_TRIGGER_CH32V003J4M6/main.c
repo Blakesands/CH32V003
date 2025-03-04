@@ -14,7 +14,7 @@
  *              Button with 1k/1u RC debounce circuit
  **/
 
-/* Includes */
+/* Include core and system files */
 #include "debug.h"
 
 // Addressable LED Driver
@@ -23,8 +23,7 @@
 // PD_Trigger PCB driver
 #include "PD_TRIGGER_DRIVER.h"
 
-int main (void)
-{
+int main (void){
     Delay_Init();
     LED_INIT();         // configure pin D6 as LED data output
     POWERGOOD_INIT();   // configure pin D1 as an input from CH224 Power Good signal (active low)
@@ -32,12 +31,10 @@ int main (void)
     REQ_5V();           // set cfg pins to request 5V
     EXTI0_INT_INIT();   // enable external hardware interrupt from button on A2
 
-    while(1)
-    {
+    while(1){
         __WFI();        // sleep mode waits for button press interrupt that increments V_REQ
         LED_SendColour(0, 0, 0, 100); // resets LED
-        switch (V_REQ)  // requests voltages from source according to V_REQ
-        {
+        switch (V_REQ) { // requests voltages from source according to V_REQ
             case 0:
                 REQ_5V();
                 break;
