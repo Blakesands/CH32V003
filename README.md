@@ -1,14 +1,13 @@
 # Code for the RISC-V WCH CH32V003 by https://radicalbakers.org/green-dragon-maker-space
 
-This code drives WS2812B LEDs, Digipots, MOSFETs etc.. It's been a learning curve. I have been coding for Arduino at a very basic level since 2019. I require basic functions from microcontrollers. I am from Yorkshire. Enter the 10p microcontroller... (20-pins=20p 8-pins=10p in 2023)
-
-The trade-off for muchos cheapness is menos libraries. Here are a few code snippets i hope will help other hobbyists get going with these V.Cheap MCUs.
-The example code and manuals are really good and can be found at https://github.com/openwch/ch32v003
+This code drives WS2812B LEDs, Digipots, MOSFETs etc.. It's been a learning curve. I have been coding for Arduino at a very basic level since 2019. I require basic functions from microcontrollers. I am from Yorkshire. Enter the 10p microcontroller... (20-pins=20p 8-pins=10p in 2023). The trade-off for muchos cheapness is menos libraries. Here are a few code snippets i hope will help other hobbyists get going with these V.Cheap MCUs.
 
 These files were developed in WCH's IDE Mounriver Studio (Mooóóoon River!). 
-You can buy the chips and the programmer from the WCH outlet on Aliexpress
+The example code and manuals can be found at https://github.com/openwch/ch32v003
+Also there is CNLohr's alternative to the WCH HAL. https://github.com/cnlohr/ch32fun
+And these chips can now be programmed with the Arduino IDE! 
 
-The 8 pin version of this CH32V003 MCU is the J4M6. To program it you need the WCH Link-E programmer. It needs only 3 lines connecting. + voltage, - voltage and SWIO that goes to pin 8 on the IC
+The 8 pin version of this CH32V003 MCU is the J4M6. To program it you need the WCH Link-E programmer. It needs only 3 lines connecting. + voltage, - voltage and SWIO that goes to pin 8 on the IC. You can buy the chips and the programmer from the WCH outlet on Aliexpress.
 
 # Charlieplexing 30 LEDs with 6 pins on the CH32V003 J4M6
 
@@ -42,15 +41,15 @@ This is a driver for the MCP4012 Microchip Digital Potentiometer, written in C l
 
 # Soft Latching NMOS Switch driver
 
-* CH32V003 J4M6 Soft latching switch with power off communication to main system
- * pins:
- * 1. PA1       Nmos gate drive
- * 2.           Ground 0V
- * 3.           NC
- * 4.           VDD +5V
- * 5. PC1       Indicator LED
- * 6. PC2       Button Press sense
- * 7. PC4       AUX output, signal back to host
- * 8. PD4       SWIO programming
+CH32V003 J4M6 Soft latching switch with power off communication to main system
+pins:
+1. PA1       Nmos gate drive
+2.           Ground 0V
+3.           NC
+4.           VDD +5V
+5. PC1       Indicator LED
+6. PC2       Button Press sense
+7. PC4       AUX output, signal back to host
+8. PD4       SWIO programming
   
 ![NMOS Switch Shematic](CH32V003J4M6_Soft_Latch_Switch/Soft_Latching_Switch_CH32V003.jpg)
