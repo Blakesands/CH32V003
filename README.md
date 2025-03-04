@@ -16,7 +16,7 @@ LEDs are controlled by setting pins as high, low, or high-impedance.
 bool led_buffer holds the state of each LED. Only 1 LED is lit at a time.
 Systick is used to update the LEDs at approx 10kHz
 
-![charlieplexing schematic]([http://url/to/img.png](https://github.com/Blakesands/CH32V003/blob/5f146b100ca555e7c42f938b3817a3958abd47fd/charlieplexing_j4m6/charlieplexing_ch32v003.jpg))
+![charlieplexing schematic](https://github.com/Blakesands/CH32V003/blob/5f146b100ca555e7c42f938b3817a3958abd47fd/charlieplexing_j4m6/charlieplexing_ch32v003.jpg)
 
 # WS2812B Addressable LEDs Bit-bang
 
