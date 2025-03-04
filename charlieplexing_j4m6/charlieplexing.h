@@ -121,55 +121,59 @@ void SysTick_Handler(void) {
 }
 
 void animate_frames (void){
-    if (animation_frame_counter==FRAME9_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame9);
-        NVIC_EnableIRQ(SysTicK_IRQn);
-    }
-    if (animation_frame_counter==FRAME8_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame8);
-        NVIC_EnableIRQ(SysTicK_IRQn);
-    }
-    if (animation_frame_counter==FRAME7_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame7);
-        NVIC_EnableIRQ(SysTicK_IRQn);
-    }
-    if (animation_frame_counter==FRAME6_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame6);
-        NVIC_EnableIRQ(SysTicK_IRQn);
-    }
-    if (animation_frame_counter==FRAME5_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame5);
-        NVIC_EnableIRQ(SysTicK_IRQn);
-    }
-    if (animation_frame_counter==FRAME4_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame4);
-        NVIC_EnableIRQ(SysTicK_IRQn);
-    }
-    if (animation_frame_counter==FRAME3_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame3);
-        NVIC_EnableIRQ(SysTicK_IRQn);
-    }
-    if (animation_frame_counter==FRAME2_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame2);
-        NVIC_EnableIRQ(SysTicK_IRQn);
-    }
-    if (animation_frame_counter==FRAME1_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame1);
-        NVIC_EnableIRQ(SysTicK_IRQn);
-    }
-    if (animation_frame_counter==FRAME0_TIME) {
-        NVIC_DisableIRQ(SysTicK_IRQn);
-        update_buffer(frame0);
-        NVIC_EnableIRQ(SysTicK_IRQn);
+    switch (animation_frame_counter) {
+        case FRAME9_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame9);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        case FRAME8_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame8);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        case FRAME7_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame7);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        case FRAME6_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame6);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        case FRAME5_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame5);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        case FRAME4_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame4);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        case FRAME3_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame3);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        case FRAME2_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame2);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        case FRAME1_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame1);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        case FRAME0_TIME:
+                    NVIC_DisableIRQ(SysTicK_IRQn);
+                    update_buffer(frame0);
+                    NVIC_EnableIRQ(SysTicK_IRQn);
+            break;
+        default:
+            break;
     }
 }
 
