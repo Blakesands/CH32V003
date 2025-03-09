@@ -14,27 +14,24 @@
  *              Button with 1k/1u RC debounce circuit
  **/
 
-/* Include core and system files */
-#include "debug.h"
 
-// Addressable LED Driver
-#include "PD_TRIGGER_WS2812_DRIVER.h"
 
 // PD_Trigger PCB driver
 #include "PD_TRIGGER_DRIVER.h"
 
-int main (void){
+
+int main (void)
+{
     Delay_Init();
     LED_INIT();         // configure pin D6 as LED data output
     POWERGOOD_INIT();   // configure pin D1 as an input from CH224 Power Good signal (active low)
     PD_CONFIG_INIT();   // configure pins C1 C2 and C4 as PP outputs attached to cfg1 cfg2 cfg3 on the CH224
     REQ_5V();           // set cfg pins to request 5V
-    EXTI0_INT_INIT();   // enable external hardware interrupt from button on A2
+    Button_Press();   // enable external hardware interrupt from button on A2
 
     while(1){
         __WFI();        // sleep mode waits for button press interrupt that increments V_REQ
-        LED_SendColour(0, 0, 0, 100); // resets LED
-        switch (V_REQ) { // requests voltages from source according to V_REQ
+        switch (Check_Volts_Requested()){  // requests voltages from source according to V_REQ
             case 0:
                 REQ_5V();
                 break;

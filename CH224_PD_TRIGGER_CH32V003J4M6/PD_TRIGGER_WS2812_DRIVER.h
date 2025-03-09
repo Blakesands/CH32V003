@@ -1,7 +1,7 @@
 /* If the LED doesn't work, check the timing of the data sent and adjust the NOPs in LED_SendBit.
- * WS2812B LED expects 400nS high/800nS low for 0 and 800nS high/400nS low for a 1.
+ * WS2812B LED expects 400n high/800n low for 0 and 800n high/400n low for a 1.
  * Each bit should be 1200nS, Send 24 bits per led in the string with a 50uS gap to indicate end of frame
- * Make sure you have defined SYSCLK_FREQ_48MHZ_HSI   48000000 // in system_ch32v00x.c */
+ * Make sure you have defined SYSCLK_FREQ_48MHZ_HSI   48000000 in system_ch32v00x.c */
 
 // Send 1 bit to WS2812B LED.
 void LED_SendBit(uint8_t bit){
@@ -39,12 +39,10 @@ int Map_Range(int value, int inMin, int inMax, int outMin, int outMax){
 
 // Send a single RGB colour for a single WS2812B LED
 void LED_SendColour(uint8_t Red, uint8_t Green, uint8_t Blue, uint8_t brightness){
-    
     uint8_t green = Map_Range(Green, 0, 255, 0, brightness);
     uint8_t red = Map_Range(Red, 0, 255, 0, brightness);
     uint8_t blue = Map_Range(Blue, 0, 255, 0, brightness);
-
-    // Send the green component first
+    // Send the green component MSB first
     for (int i = 7; i >= 0; i--){
         LED_SendBit((green >> i) & 1);  // Bitwise >> selects bit to send, & 1 tests if it's true
     }
