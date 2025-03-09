@@ -89,6 +89,10 @@ void POWERGOOD_INIT (void){ // input pin for powergood signal from CH224
 }
 
 void ERROR_STATE (void) { // Flash led and reset V_REQ - falls through to WFI
+    GPIO_WriteBit(GPIOC, GPIO_Pin_1, Bit_SET);      // cfg1
+    GPIO_WriteBit(GPIOC, GPIO_Pin_2, Bit_RESET);    // cfg2
+    GPIO_WriteBit(GPIOC, GPIO_Pin_4, Bit_RESET);    // cfg3
+    LED_SendColour(0, 0, 0, 100);
     LED_SendColour(255, 0, 0, 100);
     Delay_Ms(150);
     LED_SendColour(0, 0, 0, 100);
@@ -102,9 +106,8 @@ void ERROR_STATE (void) { // Flash led and reset V_REQ - falls through to WFI
     LED_SendColour(0, 0, 0, 100);
     Delay_Ms(150);
     LED_SendColour(255, 0, 0, 10);
-    Delay_Ms(150);
-    LED_SendColour(0, 0, 0, 100);
     V_REQ = 4; // updates to 0 on next button press
+    __enable_irq ();
 }
 
 /// config pins from MCU to CH224
