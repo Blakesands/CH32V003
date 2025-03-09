@@ -17,17 +17,15 @@
  * 8. PD4       SWIO programming
  * */
 
-void Init_Pins ();
-bool Check_Power_Flag();
+void Init_Pins();
 void Latch_Nmos();
 void Host_Comms_Pin();
+void LED_Pin();
+void Button_Press(void);
+void EXTI7_0_IRQHandler(void);
+bool Check_Power_Flag();
+void Switch_Off();
 void Host_Comms();
-void LED_Pin ();
-void Switch_Off ();
-/** Enable Interrupt falling edge C2*/
-void Button_Press (void);
-void EXTI7_0_IRQHandler (void) __attribute__((interrupt("WCH-Interrupt-fast")));
-void EXTI7_0_IRQHandler (void); // changes V_REQ variable
-void test_reset ();
+void test_reset();
 
 #endif /* USER_SOFT_LATCH_H_ */
